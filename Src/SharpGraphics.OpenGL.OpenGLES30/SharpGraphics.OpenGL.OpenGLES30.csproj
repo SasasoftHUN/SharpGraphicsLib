@@ -1,0 +1,153 @@
+<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
+
+  <!--TARGET FRAMEWORKS-->
+  <PropertyGroup>
+    <TargetFrameworks>
+      netstandard2.0;netstandard2.1;
+      <!--netcoreapp2.0;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0; Depricated by Microsoft-->
+      netcoreapp3.1;
+      net5.0;net6.0;net7.0;net8.0;
+      <!--monoandroid44; Not Supported in Xamarin-->
+      <!--monoandroid50;monoandroid51;monoandroid60;monoandroid70;monoandroid71; Not supported in OpenTK-->
+      monoandroid80;monoandroid81;monoandroid90;monoandroid10.0;monoandroid11.0;monoandroid12.0;
+    </TargetFrameworks>
+    <PackageId>SharpGraphics.OpenGL.OpenGLES30</PackageId>
+    <Version>0.1.0-alpha</Version>
+    <Authors>Dávid Szabó</Authors>
+    <Company>Eötvös Loránd University</Company>
+    <LangVersion>latest</LangVersion>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>Nullable</WarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+
+  <!--TARGET FRAMEWORK AND C# LANGUAGE VERSION DEFINES-->
+  <!--.NET Standard Target-->
+  <!--NETSTANDARD, NETSTANDARD2_0, NETSTANDARD2_1 defined automatically-->
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard2'))">
+    <DefineConstants>$(DefineConstants);CSLANG_7_3</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard2.1'))">
+    <DefineConstants>$(DefineConstants);CSLANG_8_0</DefineConstants>
+  </PropertyGroup>
+  <!--.NET Core Target-->
+  <!--NETCOREAPP3_1 defined automatically, but it does not work properly-->
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netcoreapp3.1'))">
+    <DefineConstants>$(DefineConstants);NETCORE3_1</DefineConstants>
+    <DefineConstants>$(DefineConstants);CSLANG_7_3;CSLANG_8_0</DefineConstants>
+  </PropertyGroup>
+  <!--Unified .NET Target-->
+  <!--NET5_0, NET6_0, NET7_0 defined automatically-->
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net5.0'))">
+    <DefineConstants>$(DefineConstants);NETUNIFIED</DefineConstants>
+    <DefineConstants>$(DefineConstants);CSLANG_7_3;CSLANG_8_0;CSLANG_9_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net6.0'))">
+    <DefineConstants>$(DefineConstants);NETUNIFIED</DefineConstants>
+    <DefineConstants>$(DefineConstants);CSLANG_7_3;CSLANG_8_0;CSLANG_9_0;CSLANG_10_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net7.0'))">
+    <DefineConstants>$(DefineConstants);NETUNIFIED</DefineConstants>
+    <DefineConstants>$(DefineConstants);CSLANG_7_3;CSLANG_8_0;CSLANG_9_0;CSLANG_10_0;CSLANG_11_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net8.0'))">
+    <DefineConstants>$(DefineConstants);NETUNIFIED</DefineConstants>
+    <DefineConstants>$(DefineConstants);CSLANG_7_3;CSLANG_8_0;CSLANG_9_0;CSLANG_10_0;CSLANG_11_0;CSLANG_12_0</DefineConstants>
+  </PropertyGroup>
+  <!--MonoAndroid Target-->
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('monoandroid'))">
+    <TargetFrameworkIdentifier>MonoAndroid</TargetFrameworkIdentifier>
+    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
+    <DebugType>full</DebugType>
+    <DefineConstants>$(DefineConstants);ANDROID;MONOANDROID</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('monoandroid8'))">
+    <DefineConstants>$(DefineConstants);ANDROID8;MONOANDROID8;ANDROID_OPENTK_LEGACY_PACKAGE</DefineConstants>
+    <NoWarn>XA4313</NoWarn> <!--Don't throw warning for obsolated NugGetPackages-->
+    <DefineConstants>$(DefineConstants);CSLANG_7_3</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('monoandroid9'))">
+    <DefineConstants>$(DefineConstants);ANDROID9;MONOANDROID9;ANDROID_OPENTK_LEGACY_PACKAGE</DefineConstants>
+    <NoWarn>XA4313</NoWarn> <!--Don't throw warning for obsolated NugGetPackages-->
+    <DefineConstants>$(DefineConstants);CSLANG_7_3</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('monoandroid10'))">
+    <DefineConstants>$(DefineConstants);ANDROID10;MONOANDROID10;ANDROID_OPENTK_LEGACY_PACKAGE</DefineConstants>
+    <NoWarn>XA4313</NoWarn> <!--Don't throw warning for obsolated NugGetPackages-->
+    <DefineConstants>$(DefineConstants);CSLANG_7_3</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('monoandroid11'))">
+    <DefineConstants>$(DefineConstants);ANDROID11;MONOANDROID11;ANDROID_OPENTK_LEGACY_NUGET</DefineConstants>
+    <DefineConstants>$(DefineConstants);CSLANG_7_3;CSLANG_8_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('monoandroid12'))">
+    <DefineConstants>$(DefineConstants);ANDROID12;MONOANDROID12;ANDROID_OPENTK_LEGACY_NUGET</DefineConstants>
+    <DefineConstants>$(DefineConstants);CSLANG_7_3;CSLANG_8_0;CSLANG_9_0;CSLANG_10_0</DefineConstants>
+  </PropertyGroup>
+
+  <!--OPENTK VERSIONS-->
+  <PropertyGroup Condition="$(DefineConstants.Contains('NETCORE3_1'))">
+    <DefineConstants>$(DefineConstants);OPENTK4</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(DefineConstants.Contains('NETUNIFIED'))">
+    <DefineConstants>$(DefineConstants);OPENTK4</DefineConstants>
+  </PropertyGroup>
+  
+  
+  <!--PACKAGES AND LIBRARIES-->
+  <!--Shared libraries-->
+  <ItemGroup>
+    <ProjectReference Include="..\SharpGraphics\SharpGraphics.csproj" />
+    <ProjectReference Include="..\SharpGraphics.OpenGL\SharpGraphics.OpenGL.csproj" />
+  </ItemGroup>
+
+  <!--.NET Standard Packages-->
+  <ItemGroup Condition="$(DefineConstants.Contains('NETSTANDARD'))">
+    <PackageReference Include="Nullable" Version="1.3.1"> <!--For Nullable Attributes, 2.1 doesn't have all Attributes, 2.0 have none.-->
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup Condition="$(DefineConstants.Contains('NETSTANDARD2_0'))">
+    <PackageReference Include="OpenTK.NetStandard" Version="1.0.4" />
+  </ItemGroup>
+  <ItemGroup Condition="$(DefineConstants.Contains('NETSTANDARD2_1'))">
+    <PackageReference Include="OpenTK.NetStandard" Version="1.0.5.32" />
+  </ItemGroup>
+
+  <!--Android packages-->
+  <ItemGroup Condition="$(DefineConstants.Contains('MONOANDROID'))">
+    <PackageReference Include="Nullable" Version="1.3.1"> <!--For Nullable Attributes, monoandroid doesn't have them at all.-->
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup Condition="$(DefineConstants.Contains('ANDROID_OPENTK_LEGACY_NUGET'))">
+    <PackageReference Include="Xamarin.Legacy.OpenTK" Version="1.0.2" />
+  </ItemGroup>
+  <ItemGroup Condition="$(DefineConstants.Contains('ANDROID_OPENTK_LEGACY_PACKAGE'))">
+    <Reference Include="OpenTK-1.0" />
+    <Reference Include="System.Numerics" />
+  </ItemGroup>
+
+  <!--.NET Core Packages-->
+  <ItemGroup Condition="$(DefineConstants.Contains('NETCORE3_1'))">
+    <PackageReference Include="Nullable" Version="1.3.1"> <!--For Nullable Attributes, 3.1 doesn't have all Attributes.-->
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="OpenTK" Version="4.7.7" />
+  </ItemGroup>
+
+  <!--.NET UNIFIED Packages-->
+  <ItemGroup Condition="$(DefineConstants.Contains('NETUNIFIED'))">
+    <PackageReference Include="OpenTK" Version="4.7.7" />
+  </ItemGroup>
+
+</Project>

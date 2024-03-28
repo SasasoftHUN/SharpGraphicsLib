@@ -1,0 +1,115 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>
+      netstandard2.0;netstandard2.1;
+      net5.0;net6.0;net7.0;net8.0;
+    </TargetFrameworks>
+    <PackageId>SharpGraphics.Shaders</PackageId>
+    <Version>0.1.0-alpha</Version>
+    <IsRoslynComponent>true</IsRoslynComponent>
+    <Authors>Dávid Szabó</Authors>
+    <Company>Eötvös Loránd University</Company>
+    <LangVersion>latest</LangVersion>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>Nullable</WarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <!--<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>-->
+  </PropertyGroup>
+
+
+  <!--TARGET FRAMEWORK AND C# LANGUAGE VERSION DEFINES-->
+  <!--.NET Standard Target-->
+  <!--NETSTANDARD, NETSTANDARD2_0, NETSTANDARD2_1 defined automatically-->
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard2'))">
+    <DefineConstants>$(DefineConstants);CSLANG_7_3</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard2.1'))">
+    <DefineConstants>$(DefineConstants);CSLANG_8_0</DefineConstants>
+  </PropertyGroup>
+  <!--.NET Core Target-->
+  <!--NETCOREAPP3_1 defined automatically, but it does not work properly-->
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netcoreapp3.1'))">
+    <DefineConstants>$(DefineConstants);NETCORE3_1</DefineConstants>
+    <DefineConstants>$(DefineConstants);CSLANG_7_3;CSLANG_8_0</DefineConstants>
+  </PropertyGroup>
+  <!--Unified .NET Target-->
+  <!--NET5_0, NET6_0, NET7_0 defined automatically-->
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net5.0'))">
+    <DefineConstants>$(DefineConstants);NETUNIFIED</DefineConstants>
+    <DefineConstants>$(DefineConstants);CSLANG_7_3;CSLANG_8_0;CSLANG_9_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net6.0'))">
+    <DefineConstants>$(DefineConstants);NETUNIFIED</DefineConstants>
+    <DefineConstants>$(DefineConstants);CSLANG_7_3;CSLANG_8_0;CSLANG_9_0;CSLANG_10_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net7.0'))">
+    <DefineConstants>$(DefineConstants);NETUNIFIED</DefineConstants>
+    <DefineConstants>$(DefineConstants);CSLANG_7_3;CSLANG_8_0;CSLANG_9_0;CSLANG_10_0;CSLANG_11_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net8.0'))">
+    <DefineConstants>$(DefineConstants);NETUNIFIED</DefineConstants>
+    <DefineConstants>$(DefineConstants);CSLANG_7_3;CSLANG_8_0;CSLANG_9_0;CSLANG_10_0;CSLANG_11_0;CSLANG_12_0</DefineConstants>
+  </PropertyGroup>
+
+  
+  <!--EMBEDDED RESOURCES-->
+  <ItemGroup>
+    <!--glsLangValidator-->
+    <EmbeddedResource Include="Validators\GLSLangValidator\glslangValidator_winx64.exe" />
+    <EmbeddedResource Include="Validators\GLSLangValidator\glslangValidator_mac" />
+    <EmbeddedResource Include="Validators\GLSLangValidator\glslangValidator_linux" />
+
+    <!--DirectXShaderCompiler-->
+    <EmbeddedResource Include="Validators\DirectXShaderCompiler\dxc_winx86.exe" />
+    <EmbeddedResource Include="Validators\DirectXShaderCompiler\dxc_winx64.exe" />
+    <EmbeddedResource Include="Validators\DirectXShaderCompiler\dxc_winarm64.exe" />
+    <EmbeddedResource Include="Validators\DirectXShaderCompiler\dxil_winx86.dll" />
+    <EmbeddedResource Include="Validators\DirectXShaderCompiler\dxil_winx64.dll" />
+    <EmbeddedResource Include="Validators\DirectXShaderCompiler\dxil_winarm64.dll" />
+  </ItemGroup>
+
+  
+  <!--PACKAGES AND LIBRARIES-->
+  <!--Analysis Packages-->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.5.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
+  </ItemGroup>
+  <!--.NET Standard 2.0 Packages-->
+  <ItemGroup Condition="$(DefineConstants.Contains('NETSTANDARD'))">
+    <PackageReference Include="Nullable" Version="1.3.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <!--SharpGraphics project references-->
+  <ItemGroup>
+    <ProjectReference Include="..\SharpGraphics\SharpGraphics.csproj" PrivateAssets="all" />
+    <None Include="$(OutputPath)\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+  </ItemGroup>
+
+
+  <!--Pack SharpGraphics DLL for NuGet-->
+  <PropertyGroup>
+      <GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
+  </PropertyGroup>
+  <Target Name="GetDependencyTargetPaths">
+      <ItemGroup>
+          <!--<TargetPathWithTargetPlatformMoniker Include="$(PKGNewtonsoft_Json)\lib\netstandard2.0\*.dll" IncludeRuntimeDependency="false" />-->
+          <TargetPathWithTargetPlatformMoniker Include="$(ProjectDir)\..\SharpGraphics\$(OutputPath)\*.dll" IncludeRuntimeDependency="false" />
+      </ItemGroup>
+  </Target>
+
+  <ItemGroup>
+    <None Include="$(OutputPath)\netstandard2.0\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    <None Include="$(OutputPath)\netstandard2.0\SharpGraphics.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    <None Include="$(OutputPath)\netstandard2.0\SharpGraphics.dll" Pack="true" PackagePath="lib\netstandard2.0" Visible="true" />
+  </ItemGroup>
+
+</Project>

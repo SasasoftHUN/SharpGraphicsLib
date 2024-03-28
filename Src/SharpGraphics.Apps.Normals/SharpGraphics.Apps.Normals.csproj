@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>
+      netstandard2.0;netstandard2.1;
+      netcoreapp3.1;
+      <!--net5.0;net6.0;net7.0;-->net8.0;
+    </TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>Nullable</WarningsAsErrors>
+  </PropertyGroup>
+
+  <!--EMBEDDED RESOURCES-->
+  <ItemGroup>
+    <EmbeddedResource Include="NormalsResources\earth.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NormalsResources\xneg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NormalsResources\xpos.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NormalsResources\yneg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NormalsResources\ypos.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NormalsResources\zneg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NormalsResources\zpos.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <!--PACKAGES AND LIBRARIES-->
+  <ItemGroup>
+    <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharpGraphics.Shaders\SharpGraphics.Shaders.csproj" AdditionalProperties="TargetFramework=netstandard2.0" OutputItemType="Analyzer" PrivateAssets="all" />
+    <ProjectReference Include="..\SharpGraphics\SharpGraphics.csproj" />
+  </ItemGroup>
+  <!--.NET Standard Packages-->
+  <ItemGroup Condition="$(DefineConstants.Contains('NETSTANDARD'))">
+    <PackageReference Include="Nullable" Version="1.3.1"> <!--For Nullable Attributes, 2.1 doesn't have all Attributes, 2.0 have none.-->
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <!--.NET Core Packages-->
+  <ItemGroup Condition="$(DefineConstants.Contains('NETCOREAPP3_1'))">
+    <PackageReference Include="System.Collections.Immutable" Version="6.0.0.0" /> <!--Resolve Conflict with Shaders project-->
+    <PackageReference Include="Nullable" Version="1.3.1"> <!--For Nullable Attributes, 3.1 doesn't have all Attributes.-->
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <!--.NET 5 Packages-->
+  <ItemGroup Condition="$(DefineConstants.Contains('NET5_0'))">
+    <PackageReference Include="System.Collections.Immutable" Version="6.0.0.0" /> <!--Resolve Conflict with Shaders project-->
+  </ItemGroup>
+
+</Project>

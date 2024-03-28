@@ -1,0 +1,77 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+  <group android:id="@+id/app_menu_graphicsapi">
+    <item
+        android:id="@+id/action_vulkan"
+        android:orderInCategory="100"
+        android:title="@string/action_vulkan"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_gles30"
+        android:orderInCategory="100"
+        android:title="@string/action_gles30"
+        app:showAsAction="never" />
+  </group>
+
+  <group android:id="@+id/app_menu_graphicsapp">
+    <item
+        android:id="@+id/action_app_hellotriangle"
+        android:orderInCategory="100"
+        android:title="@string/action_app_hellotriangle"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_app_vertexattributes"
+        android:orderInCategory="100"
+        android:title="@string/action_app_vertexattributes"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_app_pushvalues"
+        android:orderInCategory="100"
+        android:title="@string/action_app_pushvalues"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_app_normals"
+        android:orderInCategory="100"
+        android:title="@string/action_app_normals"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_app_normalsthreads"
+        android:orderInCategory="100"
+        android:title="@string/action_app_normalsthreads"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_app_postprocess"
+        android:orderInCategory="100"
+        android:title="@string/action_app_postprocess"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_app_simpleraytrace"
+        android:orderInCategory="100"
+        android:title="@string/action_app_simpleraytrace"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_app_models"
+        android:orderInCategory="100"
+        android:title="@string/action_app_models"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_app_deferred"
+        android:orderInCategory="100"
+        android:title="@string/action_app_deferred"
+        app:showAsAction="never" />
+  </group>
+
+  <group android:id="@+id/app_menu_settings">
+    <item
+        android:id="@+id/action_vsync"
+        android:orderInCategory="100"
+        android:title="@string/action_vsync"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_logging"
+        android:orderInCategory="100"
+        android:title="@string/action_logging"
+        app:showAsAction="never" />
+  </group>
+</menu>

@@ -1,0 +1,53 @@
+﻿<Window x:Class="SharpGraphics.Apps.NETCoreWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SharpGraphics.Apps.NETCoreWPF"
+        xmlns:sgwpf="clr-namespace:SharpGraphics.GraphicsViews.WPF;assembly=SharpGraphics.GraphicsViews.WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" KeyUp="Window_KeyUp" Closing="Window_Closing">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Menu x:Name="_menuBar">
+            <MenuItem Header="Application">
+                <MenuItem Header="Hello Triangle" Click="MenuApplication_Click" Tag="HelloTriangle" />
+                <MenuItem Header="Vertex Attributes" Click="MenuApplication_Click" Tag="VertexAttributes" />
+                <MenuItem Header="Quad Playground" Click="MenuApplication_Click" Tag="QuadPlayground" />
+                <MenuItem Header="Push Values" Click="MenuApplication_Click" Tag="PushValues" />
+                <MenuItem Header="Normals" Click="MenuApplication_Click" Tag="Normals" />
+                <MenuItem Header="Normals Threads" Click="MenuApplication_Click" Tag="NormalsThreads" />
+                <MenuItem Header="Post Process" Click="MenuApplication_Click" Tag="PostProcess" />
+                <MenuItem Header="Simple Raytrace" Click="MenuApplication_Click" Tag="SimpleRaytrace" />
+                <MenuItem Header="Models" Click="MenuApplication_Click" Tag="Models" />
+                <MenuItem Header="Deferred" Click="MenuApplication_Click" Tag="Deferred" />
+            </MenuItem>
+            <MenuItem Header="Graphics API">
+                <MenuItem Header="Vulkan" Click="MenuGraphicsAPI_Click" Tag="Vulkan" />
+                <MenuItem Header="OpenGL Core" Click="MenuGraphicsAPI_Click" Tag="GLCore" />
+                <MenuItem Header="OpenGL ES 3.0" Click="MenuGraphicsAPI_Click" Tag="GLES30" />
+            </MenuItem>
+            <MenuItem x:Name="_graphicsDeviceMenu" Header="Graphics Device"/>
+            <MenuItem Header="Present Mode">
+                <MenuItem Header="Immediate" Click="MenuPresentMode_Click" Tag="Immediate" />
+                <MenuItem Header="VSyncDoubleBuffer" Click="MenuPresentMode_Click" Tag="VSync Double Buffer" />
+                <MenuItem Header="VSyncTripleBuffer" Click="MenuPresentMode_Click" Tag="VSync Triple Buffer" />
+                <MenuItem Header="AdaptiveDoubleBuffer" Click="MenuPresentMode_Click" Tag="Adaptive Double Buffer" />
+            </MenuItem>
+            <MenuItem Header="Logging">
+                <MenuItem x:Name="_loggingChecker" Header="Logging" IsCheckable="True" />
+                <MenuItem x:Name="_logGCChecker" Header="Log GC" IsCheckable="True" />
+                <MenuItem x:Name="_logProcChecker" Header="Log Process" IsCheckable="True" />
+            </MenuItem>
+            <MenuItem Header="Fullscreen" Click="MenuFullscreen_Click" />
+            <MenuItem Header="Resize" Click="Resize_Click" />
+        </Menu>
+        <sgwpf:WPFGraphicsView x:Name="_graphicsView" ViewInitialized="_graphicsView_ViewInitialized" Grid.Row="1" ColorFormat="BGRA8srgb" />
+        <!--ColorFormat="BGRA8srgb"-->
+    </Grid>
+</Window>

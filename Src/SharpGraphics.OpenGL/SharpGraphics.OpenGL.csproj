@@ -1,0 +1,83 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--TARGET FRAMEWORKS-->
+  <PropertyGroup>
+    <TargetFrameworks>
+      netstandard2.0;netstandard2.1;
+      <!--netcoreapp2.0;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0; Depricated by Microsoft-->
+      netcoreapp3.1;
+      net5.0;net6.0;net7.0;net8.0;
+    </TargetFrameworks>
+    <PackageId>SharpGraphics.OpenGL</PackageId>
+    <Version>0.1.0-alpha</Version>
+    <Authors>Dávid Szabó</Authors>
+    <Company>Eötvös Loránd University</Company>
+    <LangVersion>latest</LangVersion>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>Nullable</WarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+
+  <!--TARGET FRAMEWORK AND C# LANGUAGE VERSION DEFINES-->
+  <!--.NET Standard Target-->
+  <!--NETSTANDARD, NETSTANDARD2_0, NETSTANDARD2_1 defined automatically-->
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard2'))">
+    <DefineConstants>$(DefineConstants);CSLANG_7_3</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard2.1'))">
+    <DefineConstants>$(DefineConstants);CSLANG_8_0</DefineConstants>
+  </PropertyGroup>
+  <!--.NET Core Target-->
+  <!--NETCOREAPP3_1 defined automatically, but it does not work properly-->
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netcoreapp3.1'))">
+    <DefineConstants>$(DefineConstants);NETCORE3_1</DefineConstants>
+    <DefineConstants>$(DefineConstants);CSLANG_7_3;CSLANG_8_0</DefineConstants>
+  </PropertyGroup>
+  <!--Unified .NET Target-->
+  <!--NET5_0, NET6_0, NET7_0 defined automatically-->
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net5.0'))">
+    <DefineConstants>$(DefineConstants);NETUNIFIED</DefineConstants>
+    <DefineConstants>$(DefineConstants);CSLANG_7_3;CSLANG_8_0;CSLANG_9_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net6.0'))">
+    <DefineConstants>$(DefineConstants);NETUNIFIED</DefineConstants>
+    <DefineConstants>$(DefineConstants);CSLANG_7_3;CSLANG_8_0;CSLANG_9_0;CSLANG_10_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net7.0'))">
+    <DefineConstants>$(DefineConstants);NETUNIFIED</DefineConstants>
+    <DefineConstants>$(DefineConstants);CSLANG_7_3;CSLANG_8_0;CSLANG_9_0;CSLANG_10_0;CSLANG_11_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net8.0'))">
+    <DefineConstants>$(DefineConstants);NETUNIFIED</DefineConstants>
+    <DefineConstants>$(DefineConstants);CSLANG_7_3;CSLANG_8_0;CSLANG_9_0;CSLANG_10_0;CSLANG_11_0;CSLANG_12_0</DefineConstants>
+  </PropertyGroup>
+  
+
+  <!--PACKAGES AND LIBRARIES-->
+  <ItemGroup>
+    <ProjectReference Include="..\SharpGraphics\SharpGraphics.csproj" />
+  </ItemGroup>
+  
+  <!--.NET Standard Packages-->
+  <ItemGroup Condition="$(DefineConstants.Contains('NETSTANDARD'))">
+    <PackageReference Include="Nullable" Version="1.3.1"> <!--For Nullable Attributes, 2.1 doesn't have all Attributes, 2.0 have none.-->
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!--.NET Core Packages-->
+  <ItemGroup Condition="$(DefineConstants.Contains('NETCORE3_1'))">
+    <PackageReference Include="Nullable" Version="1.3.1"> <!--For Nullable Attributes, 3.1 doesn't have all Attributes.-->
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

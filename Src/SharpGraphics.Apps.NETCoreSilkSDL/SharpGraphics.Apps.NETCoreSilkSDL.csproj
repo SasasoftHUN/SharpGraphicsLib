@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+
+    <PublishSingleFile>true</PublishSingleFile>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishReadyToRunComposite>false</PublishReadyToRunComposite>
+
+    <!--<PublishTrimmed>true</PublishTrimmed>
+    <PublishAot>true</PublishAot>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Silk.NET.SDL" Version="2.17.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SharpGraphics.Apps.ConsoleSelector\SharpGraphics.Apps.ConsoleSelector.csproj" />
+    <ProjectReference Include="..\SharpGraphics.GraphicsViews.SilkNETSDL\SharpGraphics.GraphicsViews.SilkNETSDL.csproj" />
+  </ItemGroup>
+
+</Project>

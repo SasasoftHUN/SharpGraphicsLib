@@ -1,0 +1,16 @@
+<resources>
+  <string name="app_name">SharpGraphics</string>
+  <string name="action_vulkan">Vulkan</string>
+  <string name="action_gles30">OpenGL ES 3.0</string>
+  <string name="action_app_hellotriangle">Hello Triangle</string>
+  <string name="action_app_vertexattributes">Vertex Attributes</string>
+  <string name="action_app_pushvalues">Push Values</string>
+  <string name="action_app_normals">Normals</string>
+  <string name="action_app_normalsthreads">Normals Threads</string>
+  <string name="action_app_postprocess">Post Process</string>
+  <string name="action_app_simpleraytrace">Simple Raytrace</string>
+  <string name="action_app_models">Models</string>
+  <string name="action_app_deferred">Deferred</string>
+  <string name="action_vsync">VSync</string>
+  <string name="action_logging">Logging</string>
+</resources>

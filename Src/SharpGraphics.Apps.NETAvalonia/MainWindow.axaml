@@ -1,0 +1,64 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:sharpgraphics="clr-namespace:SharpGraphics.GraphicsViews.NETAvalonia;assembly=SharpGraphics.GraphicsViews.NETAvalonia"
+        x:Class="SharpGraphics.Apps.NETAvalonia.MainWindow" Background="Transparent"
+        Title="SharpGraphics.Apps.NETAvalonia" KeyUp="Window_KeyUp">
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <Menu x:Name="_menuBar">
+      <MenuItem Header="Application">
+        <MenuItem Header="Hello Triangle" Click="MenuApplication_Click" Tag="HelloTriangle" />
+        <MenuItem Header="Vertex Attributes" Click="MenuApplication_Click" Tag="VertexAttributes" />
+        <MenuItem Header="Quad Playground" Click="MenuApplication_Click" Tag="QuadPlayground" />
+        <MenuItem Header="Push Values" Click="MenuApplication_Click" Tag="PushValues" />
+        <MenuItem Header="Normals" Click="MenuApplication_Click" Tag="Normals" />
+        <MenuItem Header="Normals Threads" Click="MenuApplication_Click" Tag="NormalsThreads" />
+        <MenuItem Header="Post Process" Click="MenuApplication_Click" Tag="PostProcess" />
+        <MenuItem Header="Simple Raytrace" Click="MenuApplication_Click" Tag="SimpleRaytrace" />
+        <MenuItem Header="Models" Click="MenuApplication_Click" Tag="Models" />
+        <MenuItem Header="Deferred" Click="MenuApplication_Click" Tag="Deferred" />
+      </MenuItem>
+      <MenuItem Header="Graphics API">
+        <MenuItem Header="Vulkan" Click="MenuGraphicsAPI_Click" Tag="Vulkan" />
+        <MenuItem Header="OpenGL Core" Click="MenuGraphicsAPI_Click" Tag="GLCore" />
+        <MenuItem Header="OpenGL ES 3.0" Click="MenuGraphicsAPI_Click" Tag="GLES30" />
+      </MenuItem>
+      <MenuItem Header="Present Mode">
+        <MenuItem Header="Immediate" Click="MenuPresentMode_Click" Tag="Immediate" />
+        <MenuItem Header="VSyncDoubleBuffer" Click="MenuPresentMode_Click" Tag="VSync Double Buffer" />
+        <MenuItem Header="VSyncTripleBuffer" Click="MenuPresentMode_Click" Tag="VSync Triple Buffer" />
+        <MenuItem Header="AdaptiveDoubleBuffer" Click="MenuPresentMode_Click" Tag="Adaptive Double Buffer" />
+      </MenuItem>
+      <MenuItem Header="Logging">
+        <MenuItem Header="Logging" Click="MenuLogging_Click">
+          <MenuItem.Icon>
+            <CheckBox x:Name="_loggingChecker" BorderThickness="0" IsHitTestVisible="False" />
+          </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Log GC" Click="MenuLoggingGC_Click">
+          <MenuItem.Icon>
+            <CheckBox x:Name="_logGCChecker" BorderThickness="0" IsHitTestVisible="False" />
+          </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Log Process" Click="MenuLoggingProcess_Click">
+          <MenuItem.Icon>
+            <CheckBox x:Name="_logProcChecker" BorderThickness="0" IsHitTestVisible="False" />
+          </MenuItem.Icon>
+        </MenuItem>
+      </MenuItem>
+      <MenuItem Header="Fullscreen" Click="MenuFullscreen_Click" />
+      <MenuItem Header="Resize" Click="Resize_Click" />
+    </Menu>
+
+    <sharpgraphics:AvaloniaGraphicsView x:Name="_graphicsView" Grid.Row="1" ViewInitialized="_graphicsView_Initialized" />
+
+  </Grid>
+</Window>
